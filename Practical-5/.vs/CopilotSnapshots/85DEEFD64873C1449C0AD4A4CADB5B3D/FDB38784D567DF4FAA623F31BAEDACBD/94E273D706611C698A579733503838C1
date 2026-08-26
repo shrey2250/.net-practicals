@@ -1,0 +1,46 @@
+﻿using System;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace Practical_5
+{
+    public partial class login_page : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (!IsPostBack && Request.Cookies["LeaveSystemUser"] != null)
+            {
+                txtUsername.Text = Request.Cookies["LeaveSystemUser"].Value;
+            }
+        }
+
+        protected void btnLogin_Click(object sender, EventArgs e)
+        {
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
+            string username = txtUsername.Text.Trim();
+            string password = txtPassword.Text.Trim();
+
+            if (username == "admin" && password == "admin123")
+            {
+                Session["Username"] = username;
+
+                HttpCookie cookie = new HttpCookie("LeaveSystemUser");
+                cookie.Value = username;
+                cookie.Expires = DateTime.Now.AddDays(7);
+                Response.Cookies.Add(cookie);
+
+                Response.Redirect("leave page.aspx");
+            }
+
+            lblMessage.Text = "Invalid username or password. Use admin / admin123.";
+        }
+    }
+}

@@ -1,0 +1,33 @@
+﻿using System;
+using System;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace Practical_5
+{
+    public partial class login_page : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
+            Session["Username"] = TextBox1.Text.Trim();
+
+            HttpCookie cookie = new HttpCookie("LeaveSystemUser");
+            cookie.Value = TextBox1.Text.Trim();
+            cookie.Expires = DateTime.Now.AddDays(7);
+            Response.Cookies.Add(cookie);
+
+            Response.Redirect("leave page.aspx");
+        }
+    }
+}

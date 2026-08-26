@@ -1,0 +1,63 @@
+﻿using System;
+using System;
+using System.Web;
+using System.Web.UI;
+using System.Web.UI.WebControls;
+
+namespace Practical_5
+{
+    public partial class leave_page : System.Web.UI.Page
+    {
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            if (Session["Username"] == null)
+            {
+                HttpCookie cookie = Request.Cookies["LeaveSystemUser"];
+
+                if (cookie != null && !string.IsNullOrWhiteSpace(cookie.Value))
+                {
+                    Session["Username"] = cookie.Value;
+                }
+                else
+                {
+                    Response.Redirect("login page.aspx");
+                    return;
+                }
+            }
+
+            if (!IsPostBack)
+            {
+                lblWelcome.Text = "Welcome, " + Session["Username"].ToString();
+                txtName.Text = Session["Username"].ToString();
+                txtLeaveDate.Text = DateTime.Now.ToString("dd/MM/yyyy");
+            }
+        }
+
+        protected void calLeaveDate_SelectionChanged(object sender, EventArgs e)
+        {
+            txtLeaveDate.Text = calLeaveDate.SelectedDate.ToString("dd/MM/yyyy");
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (!Page.IsValid)
+            {
+                return;
+            }
+
+            Session["LeaveName"] = txtName.Text.Trim();
+            Session["LeaveType"] = ddlLeaveType.SelectedValue;
+            Session["LeaveDate"] = txtLeaveDate.Text.Trim();
+            Session["LeaveDays"] = txtDays.Text.Trim();
+            Session["LeaveReason"] = txtReason.Text.Trim();
+
+            lblResult.Text = "Leave request submitted successfully.";
+            pnlOutput.Visible = true;
+            lblOutName.Text = Server.HtmlEncode(txtName.Text.Trim());
+            lblOutType.Text = Server.HtmlEncode(ddlLeaveType.SelectedValue);
+            lblOutDate.Text = Server.HtmlEncode(txtLeaveDate.Text.Trim());
+            lblOutDays.Text = Server.HtmlEncode(txtDays.Text.Trim());
+            lblOutReason.Text = Server.HtmlEncode(txtReason.Text.Trim()).Replace("\r\n", "<br />");
+        }
+    }
+}
