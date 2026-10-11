@@ -1,0 +1,27 @@
+﻿
+@model Practical_7.Models.StudentFeedback
+
+@{
+    ViewBag.Title = "Student Feedback";
+}
+
+<h2>Student Feedback Form</h2>
+
+@Html.Partial("_FeedbackForm", Model)
+
+@if (ViewBag.SubmittedFeedback != null)
+{
+    var result = (Practical_7.Models.StudentFeedback)ViewBag.SubmittedFeedback;
+
+<div class="result-box">
+    <strong>Submitted Feedback Details</strong>
+    <br />
+    Name: @result.Name
+    <br />
+    Email: @result.Email
+    <br />
+    Course: @result.Course
+    <br />
+    Feedback: @result.Comments
+</div>
+}

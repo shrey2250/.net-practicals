@@ -1,0 +1,14 @@
+﻿
+@model Practical_7.Models.StudentFeedback
+
+@{
+    ViewBag.Title = "Success";
+}
+
+<h2>Feedback Submitted Successfully!</h2>
+
+<p>Thank you for your feedback, @Model.Name.</p>
+
+<p>
+    @Html.ActionLink("Back to Home", "Index", "Home")
+</p>

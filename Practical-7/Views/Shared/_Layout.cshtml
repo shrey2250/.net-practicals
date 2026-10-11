@@ -1,0 +1,29 @@
+﻿
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Feedback</title>
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" />
+</head>
+<body>
+    <header>
+        <h1>Student Feedback Management</h1>
+
+        @Html.ActionLink("Home", "Index", "Home")
+        |
+        @Html.ActionLink("Student Feedback", "Index", "Feedback")
+    </header>
+
+    <hr />
+
+    <main>
+        @RenderBody()
+    </main>
+
+    <hr />
+
+    <footer>
+        <p>Student Feedback Management System</p>
+    </footer>
+</body>
+</html>
